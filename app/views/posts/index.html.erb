@@ -1,0 +1,30 @@
+<p class="notice"><%= notice %></p>
+<p class="alert"><%= alert %></p>
+
+<% if user_signed_in? %>
+	<%= link_to "Log out", destroy_user_session_path, method: :delete %>
+	<%= current_user.email %>
+<% else %>
+	<%= link_to "Log In", new_user_session_path %>
+	<%= link_to "Sign Up", new_user_registration_path %>
+<% end %>
+
+
+
+<h1>Posts#index</h1>
+<p>Find me in app/views/posts/index.html.erb</p>
+<%= form_with model: @post do |f| %>
+	Author: <%= f.text_field :author %>
+	Post: <%= f.text_field :post %>
+	<%= f.submit %>
+<% end %>
+
+<% @posts.each do |p| %>
+	<% if user_signed_in? %>
+		Autor: <%= p.author %>
+	<% else %>
+		Author: Anon
+	<% end %>
+	Texto: <%= p.post %>
+	<br>
+<% end %>
